@@ -3,7 +3,8 @@
 Android TV home screen in [Caelestia](https://github.com/caelestia-dots/shell) colours.
 Built on the [CleanYourTV](https://github.com/Gathin23/cleanyourtv) launcher.
 
-- 13 Caelestia colour schemes, dark and light, switched with the remote
+- 14 Caelestia colour schemes, dark and light, switched with the remote
+- Big two-tone clock in the style of Caelestia's lock screen, with a random quote beside it
 - Frosted dock, aurora backdrop, memory and storage rings
 - Smart dock: the apps you use most move to the front
 - App switcher and a clock screensaver
@@ -25,7 +26,7 @@ parts with `--no-debloat` / `--no-tweaks`.
 Nothing is uninstalled. The old state goes to `backup/` first, and `./restore.sh <tv-ip>` puts it back.
 Without the APK the script builds one from `launcher/` (JDK 17 and the Android SDK).
 
-Change scheme: Settings button → Launcher settings → Colour scheme.
+Change scheme: the palette button at the top right.
 Change the layout or the dock apps in `theme/config.json` and run the script again.
 
 ## Extras
@@ -45,3 +46,13 @@ clock, and the quotes list.
 
 Shoutout to [caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm) by ItsABigIgloo: its lock screen
 is the inspiration for the clock, the quotes and the look of CaelestiaTV.
+
+## AI declaration
+
+CaelestiaTV is made with AI. Most of the code, the install scripts and this README were written by Claude
+(Anthropic), working in Claude Code. I decided what to build and how it should look, tried every change on my
+own TV, and went back and forth until it was right. Claude has been part of it since the first commit; the
+commits from this one on also list Claude as co-author.
+
+The launcher underneath is CleanYourTV, written by its own authors. The colour schemes, fonts and quotes come from
+the projects named under Credits.
