@@ -10,6 +10,32 @@ Built on the [CleanYourTV](https://github.com/Gathin23/cleanyourtv) launcher.
 - App switcher and a clock screensaver
 - No internet permission, no tracking, about 550 KB
 
+![CaelestiaTV in Caelestia dark](screenshots/home-caelestia-dark.jpg)
+
+## Screenshots
+
+Home in a few of the schemes, with YouTube focused:
+
+| | |
+|---|---|
+| ![Dracula dark](screenshots/home-dracula-dark.jpg) | ![Darkgreen](screenshots/home-darkgreen.jpg) |
+| Dracula dark | Darkgreen |
+| ![Caelestia light](screenshots/home-caelestia-light.jpg) | ![Colour scheme picker](screenshots/picker.jpg) |
+| Caelestia light | The palette button opens the scheme list |
+
+The screensaver takes the scheme too, with a new quote each time:
+
+| | |
+|---|---|
+| ![](screenshots/screensaver-caelestia-dark.jpg) | ![](screenshots/screensaver-dracula-dark.jpg) |
+| Caelestia dark | Dracula dark |
+| ![](screenshots/screensaver-darkgreen.jpg) | ![](screenshots/screensaver-catppuccin-mocha.jpg) |
+| Darkgreen | Catppuccin mocha |
+| ![](screenshots/screensaver-gruvbox-dark.jpg) | ![](screenshots/screensaver-everforest-dark.jpg) |
+| Gruvbox dark | Everforest dark |
+| ![](screenshots/screensaver-rosepine.jpg) | ![](screenshots/screensaver-caelestia-light.jpg) |
+| Rosé Pine | Caelestia light |
+
 ## Install
 
 You need `adb` on your computer and Network debugging on the TV (Android 8 or newer).
