@@ -49,10 +49,23 @@ is the inspiration for the clock, the quotes and the look of CaelestiaTV.
 
 ## AI declaration
 
-CaelestiaTV is made with AI. Most of the code, the install scripts and this README were written by Claude
-(Anthropic), working in Claude Code. I decided what to build and how it should look, tried every change on my
-own TV, and went back and forth until it was right. Claude has been part of it since the first commit; the
-commits from this one on also list Claude as co-author.
+CaelestiaTV is made with AI. Most of the code, the install scripts and this README were written by Claude in
+Claude Code (Anthropic). I decided what to build and how it should look, tried every change on my own TV, and
+went back and forth until it was right. Claude has been part of it since the first commit; the commits from this
+one on also list Claude as co-author.
+
+How I use it: one main chat on **Claude Opus 5.5**, which is the brain. It holds the conversation, makes the
+plan, takes the design calls, writes the code that needs context and checks everything before it is used. To save
+tokens, bigger jobs that are clearly defined go to subagents on cheaper models, and Opus reviews what comes back:
+
+- **Claude Haiku** for reading: it mapped the CleanYourTV code before the first changes
+- **Claude Sonnet** for building to an agreed plan: the colour schemes on every surface, the light schemes,
+  the contrast test and the memory and storage rings
+- **Opus 5.5** itself for the rest, mostly on medium effort: the review and fixes of Sonnet's work, the clock,
+  quotes, palette button, layout and screensaver changes, and the install scripts
+
+Before anything from the internet was cloned or installed, Claude checked it for security first. Testing is on a
+real TV over adb: Claude installs the build, takes a screenshot, and I say what to change.
 
 The launcher underneath is CleanYourTV, written by its own authors. The colour schemes, fonts and quotes come from
 the projects named under Credits.
