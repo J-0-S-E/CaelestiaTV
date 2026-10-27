@@ -13,7 +13,7 @@
   ],
   "smart_dock": true,
   "columns": 5,
-  "rows_below_dock": 1,
+  "rows_below_dock": 0,
   "dock_row": true,
   "dock_band": true,
   "dock_title": true,

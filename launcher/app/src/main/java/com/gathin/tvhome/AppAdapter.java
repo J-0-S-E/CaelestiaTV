@@ -96,18 +96,21 @@ public class AppAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     static final float FOCUS_SCALE = 1.10f;
+    /** The share of FOCUS_SCALE a cell keeps free beside its tile (tileWidthPx). */
+    static final float FIT_ZOOM = 1.06f;
     /** Design size of a tile (dp); tiles shrink from here when the columns don't fit, see tileWidthPx. */
     static final float DESIGN_W_DP = 180f, DESIGN_H_DP = 101f;
 
     /**
-     * Tile width for a grid of this inner width: the cell minus room for the focus zoom and the glass
-     * highlight, capped at the design size so 4 columns on a 1080p TV look exactly as before.
+     * Tile width for a grid of this inner width: the cell minus room for the glass highlight and part of the
+     * focus zoom, capped at the design size so 4 columns on a 1080p TV look exactly as before. Only part: with
+     * the whole zoom kept free, 5 columns left wide gaps, and a focused tile may grow into the gap beside it.
      */
     static int tileWidthPx(int innerWidthPx, int columns, float density) {
         int design = Math.round(DESIGN_W_DP * density);
         if (innerWidthPx <= 0 || columns <= 0) return design;
         int cell = innerWidthPx / columns;
-        int fit = (int) ((cell - 12 * density) / FOCUS_SCALE);
+        int fit = (int) ((cell - 10 * density) / FIT_ZOOM);
         return Math.max(Math.round(80 * density), Math.min(design, fit));
     }
 

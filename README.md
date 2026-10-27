@@ -41,5 +41,7 @@ Pressing Home while you are already on Home also starts the clock.
 
 Launcher: CleanYourTV (MIT). Colour schemes: Caelestia and the themes they come from (Dracula, Catppuccin,
 Gruvbox, Rosé Pine, Tokyo Night, Nord, Everforest). Fonts: Outfit (OFL), and Google Sans Flex (OFL) for the
-clock, styled after caelestia-sddm's lock screen. Quotes: the list from
-[caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm).
+clock, and the quotes list.
+
+Shoutout to [caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm) by ItsABigIgloo: its lock screen
+is the inspiration for the clock, the quotes and the look of CaelestiaTV.
