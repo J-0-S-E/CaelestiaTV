@@ -1,77 +1,157 @@
-# CaelestiaTV
+<div align="center">
 
-Android TV home screen in [Caelestia](https://github.com/caelestia-dots/shell) colours.
-Built on the [CleanYourTV](https://github.com/Gathin23/cleanyourtv) launcher.
+<img src="screenshots/banner.jpg" alt="CaelestiaTV" width="100%">
 
-- 14 Caelestia colour schemes, dark and light, switched with the remote
-- Big two-tone clock in the style of Caelestia's lock screen, with a random quote beside it
-- Frosted dock, aurora backdrop, memory and storage rings
-- Smart dock: the apps you use most move to the front
-- App switcher and a clock screensaver
-- No internet permission, no tracking, about 550 KB
+**The Caelestia desktop look, on the TV in the same room.**
 
-![CaelestiaTV in Caelestia dark](screenshots/home-caelestia-dark.jpg)
+[![](https://img.shields.io/github/last-commit/J-0-S-E/CaelestiaTV?&style=for-the-badge&logoColor=D9E0EE&labelColor=1E202B&color=d6c8ff&logo=git)](https://github.com/J-0-S-E/CaelestiaTV/commits/main)
+[![](https://img.shields.io/badge/Android_TV-8%2B-50fa7b?style=for-the-badge&logoColor=D9E0EE&labelColor=1E202B&logo=android)](#install)
+[![](https://img.shields.io/badge/Caelestia-Shell-8ad7eb?style=for-the-badge&logoColor=D9E0EE&labelColor=1E202B&logo=github)](https://github.com/caelestia-dots/shell)
+[![](https://img.shields.io/badge/Built_on-CleanYourTV-86dbd7?style=for-the-badge&logoColor=D9E0EE&labelColor=1E202B&logo=github)](https://github.com/Gathin23/cleanyourtv)
+
+[Screenshots](#screenshots) · [Install](#install) · [Make it yours](#make-it-yours) · [Credits](#credits) · [AI declaration](#ai-declaration)
+
+</div>
+
+<br>
+
+![CaelestiaTV on Home in Caelestia dark](screenshots/home-caelestia-dark.jpg)
+
+## Why this exists
+
+My PC runs [Caelestia](https://github.com/caelestia-dots/shell) on Hyprland. The TV next to it ran the stock
+Android TV home screen: rows of ads, apps I never asked for and a clock you could barely see. So the TV got the
+same look as the desktop. Same colour schemes, the same big two-tone clock as the lock screen, and quotes beside it.
+
+It is still a normal smart TV home screen. Your apps are in a dock, the remote works the way you expect, and
+nothing is uninstalled.
+
+## What you get
+
+| | |
+|---|---|
+| **The clock** | Big and bold in Google Sans Flex, like [caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm)'s lock screen. Hours, colon and minutes each take a colour from the scheme |
+| **Quotes** | 43 short quotes next to the clock. A new one each time you come back to Home |
+| **14 colour schemes** | Caelestia, Dracula, Darkgreen, Catppuccin, Gruvbox, Rosé Pine, Everforest, Nord, Tokyo Night, dark and light. The palette button switches them |
+| **Smart dock** | Your apps as their own banners. The ones you use most move to the front, and the next row fades into the bottom of the screen |
+| **Screensaver** | Clock, date and a quote in the scheme's colours. It starts after 15 minutes and dims to half after an hour |
+| **Light on the TV** | No internet permission, no tracking, about 575 KB. Built and tested on a TV with 1.8 GB of RAM |
 
 ## Screenshots
 
-Home in a few of the schemes, with YouTube focused:
+<table>
+  <tr>
+    <td><img src="screenshots/home-dracula-dark.jpg" alt="Dracula dark"></td>
+    <td><img src="screenshots/home-darkgreen.jpg" alt="Darkgreen"></td>
+  </tr>
+  <tr>
+    <td align="center">Dracula dark</td>
+    <td align="center">Darkgreen</td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/home-caelestia-light.jpg" alt="Caelestia light"></td>
+    <td><img src="screenshots/picker.jpg" alt="The colour scheme list"></td>
+  </tr>
+  <tr>
+    <td align="center">Caelestia light</td>
+    <td align="center">The palette button opens the scheme list</td>
+  </tr>
+</table>
 
-| | |
-|---|---|
-| ![Dracula dark](screenshots/home-dracula-dark.jpg) | ![Darkgreen](screenshots/home-darkgreen.jpg) |
-| Dracula dark | Darkgreen |
-| ![Caelestia light](screenshots/home-caelestia-light.jpg) | ![Colour scheme picker](screenshots/picker.jpg) |
-| Caelestia light | The palette button opens the scheme list |
+<details>
+<summary><b>The screensaver in eight schemes</b></summary>
+<br>
 
-The screensaver takes the scheme too, with a new quote each time:
+<table>
+  <tr>
+    <td><img src="screenshots/screensaver-caelestia-dark.jpg" alt="Caelestia dark"></td>
+    <td><img src="screenshots/screensaver-dracula-dark.jpg" alt="Dracula dark"></td>
+  </tr>
+  <tr><td align="center">Caelestia dark</td><td align="center">Dracula dark</td></tr>
+  <tr>
+    <td><img src="screenshots/screensaver-darkgreen.jpg" alt="Darkgreen"></td>
+    <td><img src="screenshots/screensaver-catppuccin-mocha.jpg" alt="Catppuccin mocha"></td>
+  </tr>
+  <tr><td align="center">Darkgreen</td><td align="center">Catppuccin mocha</td></tr>
+  <tr>
+    <td><img src="screenshots/screensaver-gruvbox-dark.jpg" alt="Gruvbox dark"></td>
+    <td><img src="screenshots/screensaver-everforest-dark.jpg" alt="Everforest dark"></td>
+  </tr>
+  <tr><td align="center">Gruvbox dark</td><td align="center">Everforest dark</td></tr>
+  <tr>
+    <td><img src="screenshots/screensaver-rosepine.jpg" alt="Rosé Pine"></td>
+    <td><img src="screenshots/screensaver-caelestia-light.jpg" alt="Caelestia light"></td>
+  </tr>
+  <tr><td align="center">Rosé Pine</td><td align="center">Caelestia light</td></tr>
+</table>
 
-| | |
-|---|---|
-| ![](screenshots/screensaver-caelestia-dark.jpg) | ![](screenshots/screensaver-dracula-dark.jpg) |
-| Caelestia dark | Dracula dark |
-| ![](screenshots/screensaver-darkgreen.jpg) | ![](screenshots/screensaver-catppuccin-mocha.jpg) |
-| Darkgreen | Catppuccin mocha |
-| ![](screenshots/screensaver-gruvbox-dark.jpg) | ![](screenshots/screensaver-everforest-dark.jpg) |
-| Gruvbox dark | Everforest dark |
-| ![](screenshots/screensaver-rosepine.jpg) | ![](screenshots/screensaver-caelestia-light.jpg) |
-| Rosé Pine | Caelestia light |
+</details>
 
 ## Install
 
-You need `adb` on your computer and Network debugging on the TV (Android 8 or newer).
-Get `CaelestiaTV.apk` from Releases and put it next to the script, then:
+You need `adb` on your computer, and a TV on Android 8 or newer.
 
-    ./install.sh <tv-ip>          # Linux, macOS
-    .\install.ps1 <tv-ip>         # Windows
+1. **Turn on debugging on the TV.** Settings → Device preferences → About, press *Build* seven times. Then turn
+   on *Network debugging* (or *Wireless debugging*) under Developer options.
+2. **Get the APK.** Download `CaelestiaTV.apk` from Releases and put it next to the install script.
+3. **Run the script** with your TV's IP address:
 
-It installs the launcher and theme, disables Google's extras that no TV needs ([debloat](debloat/)), sets
-animations to 0.5x and lets Android keep 6 apps in the background instead of 32. That last one is most of the
-speed on a TV with 2 GB of RAM. Add your TV's own bloat list with `--list` (see [debloat](debloat/)), or skip
-parts with `--no-debloat` / `--no-tweaks`.
+```bash
+./install.sh <tv-ip>
+```
 
-Nothing is uninstalled. The old state goes to `backup/` first, and `./restore.sh <tv-ip>` puts it back.
-Without the APK the script builds one from `launcher/` (JDK 17 and the Android SDK).
+```powershell
+.\install.ps1 <tv-ip>
+```
 
-Change scheme: the palette button at the top right.
-Change the layout or the dock apps in `theme/config.json` and run the script again.
+Allow the prompt on the TV, and it is done. Turn debugging off again when you are finished.
 
-## Extras
+<details>
+<summary><b>What the script changes</b></summary>
+<br>
 
-Two intents you can bind to a key, for example with [Key Mapper](https://github.com/keymapperorg/KeyMapper):
+| Step | What happens |
+|---|---|
+| Launcher and theme | Installs CaelestiaTV, makes it Home, and copies the theme, the schemes and the quotes |
+| Debloat | Disables Google's extras that no TV needs ([list](debloat/)). Nothing is uninstalled |
+| Speed | Animations at 0.5x, and Android keeps 6 apps in the background instead of 32. On a 2 GB TV that is most of the speed |
+| Screensaver | Starts after 15 minutes without a key press |
+| Backup | Writes the old state to `backup/` before anything changes |
 
-- `com.gathin.tvhome.RECENTS` opens the app switcher
-- `com.gathin.tvhome.SCREENSAVER` starts the clock
+Add your TV's own bloat list with `--list` (see [debloat](debloat/)), or skip parts with `--no-debloat` and
+`--no-tweaks`. To go back: `./restore.sh <tv-ip>`. Without an APK the script builds one from `launcher/`
+(JDK 17 and the Android SDK).
 
-Pressing Home while you are already on Home also starts the clock.
+</details>
+
+## Make it yours
+
+Everything lives in [`theme/config.json`](theme/config.json). Change it and run the script again.
+
+| Key | What it does |
+|---|---|
+| `dock_apps` | The apps in the dock, by package name, in order |
+| `columns` | Apps per row (5 by default) |
+| `clock_size` | The clock in sp, 40 to 120 (100 by default) |
+| `scheme` | The scheme to start with, a file name in [`theme/schemes/`](theme/schemes/) |
+| `home_idle_clock_minutes` | Minutes on Home before the clock comes up |
+
+The quotes are in [`theme/quotes.json`](theme/quotes.json). Add your own, or empty the list to hide them.
+
+**Extras:** two intents you can bind to a remote key, for example with
+[Key Mapper](https://github.com/keymapperorg/KeyMapper). `com.gathin.tvhome.RECENTS` opens the app switcher and
+`com.gathin.tvhome.SCREENSAVER` starts the clock. Pressing Home while you are on Home starts it too.
+
+**Tested on** a Sharp AQUOS (Android TV 14, 1.8 GB RAM).
 
 ## Credits
 
-Launcher: CleanYourTV (MIT). Colour schemes: Caelestia and the themes they come from (Dracula, Catppuccin,
-Gruvbox, Rosé Pine, Tokyo Night, Nord, Everforest). Fonts: Outfit (OFL), and Google Sans Flex (OFL) for the
-clock, and the quotes list.
-
-Shoutout to [caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm) by ItsABigIgloo: its lock screen
-is the inspiration for the clock, the quotes and the look of CaelestiaTV.
+- **[CleanYourTV](https://github.com/Gathin23/cleanyourtv)** (MIT), the launcher this is built on
+- **[Caelestia](https://github.com/caelestia-dots/shell)** and the themes its schemes come from: Dracula,
+  Catppuccin, Gruvbox, Rosé Pine, Tokyo Night, Nord, Everforest
+- **[caelestia-sddm](https://github.com/ItsABigIgloo/caelestia-sddm)** by ItsABigIgloo. Its lock screen is the
+  inspiration for the clock, the quotes and the look of CaelestiaTV, and the quote list comes from there
+- **Fonts:** Outfit (OFL), and Google Sans Flex (OFL) for the clock
 
 ## AI declaration
 
@@ -88,10 +168,17 @@ tokens, bigger jobs that are clearly defined go to subagents on cheaper models, 
 - **Claude Sonnet** for building to an agreed plan: the colour schemes on every surface, the light schemes,
   the contrast test and the memory and storage rings
 - **Opus 5.5** itself for the rest, mostly on medium effort: the review and fixes of Sonnet's work, the clock,
-  quotes, palette button, layout and screensaver changes, and the install scripts
+  quotes, palette button, layout and screensaver changes, the install scripts, and the screenshots, taken on the
+  TV over adb
 
 Before anything from the internet was cloned or installed, Claude checked it for security first. Testing is on a
 real TV over adb: Claude installs the build, takes a screenshot, and I say what to change.
 
 The launcher underneath is CleanYourTV, written by its own authors. The colour schemes, fonts and quotes come from
 the projects named under Credits.
+
+<br>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20for-Android_TV-86dbd7?style=for-the-badge&logo=android" alt="Made with love for Android TV">
+</p>
