@@ -1,0 +1,8 @@
+.idea/
+*.apk
+launcher/.gradle/
+launcher/build/
+launcher/app/build/
+launcher/local.properties
+launcher/hs_err_pid*.log
+launcher/replay_pid*.log
