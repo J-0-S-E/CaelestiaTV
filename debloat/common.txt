@@ -1,0 +1,8 @@
+# Disabled on every TV by install (pm disable-user, never uninstalled; restore puts them back).
+# Only Google's own extras that no TV needs. Missing packages are skipped.
+com.google.android.tvrecommendations      # recommendation rows of the stock launcher
+com.google.android.feedback               # feedback reports to Google
+com.android.tv.feedbackconsent            # feedback consent dialog
+com.google.android.partnersetup           # partner customisations
+com.google.android.backdrop               # ambient screensaver (CaelestiaTV has its own clock)
+com.google.android.syncadapters.calendar  # calendar sync

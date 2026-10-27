@@ -1,5 +1,6 @@
 .idea/
 *.apk
+backup/
 launcher/.gradle/
 launcher/build/
 launcher/app/build/

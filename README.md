@@ -17,6 +17,12 @@ Get `CaelestiaTV.apk` from Releases and put it next to the script, then:
     ./install.sh <tv-ip>          # Linux, macOS
     .\install.ps1 <tv-ip>         # Windows
 
+It installs the launcher and theme, disables Google's extras that no TV needs ([debloat](debloat/)), sets
+animations to 0.5x and lets Android keep 6 apps in the background instead of 32. That last one is most of the
+speed on a TV with 2 GB of RAM. Add your TV's own bloat list with `--list` (see [debloat](debloat/)), or skip
+parts with `--no-debloat` / `--no-tweaks`.
+
+Nothing is uninstalled. The old state goes to `backup/` first, and `./restore.sh <tv-ip>` puts it back.
 Without the APK the script builds one from `launcher/` (JDK 17 and the Android SDK).
 
 Change scheme: Settings button → Launcher settings → Colour scheme.
