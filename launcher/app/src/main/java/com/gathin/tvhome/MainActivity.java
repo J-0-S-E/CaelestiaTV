@@ -2909,6 +2909,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         SchemeClock clock = findViewById(R.id.clock);
         clock.setTextColor(scheme.secondary);
         clock.setHourColor(Palette.mix(scheme.primary, Color.WHITE, 0.35f));
+        clock.setSeparatorColor(scheme.tertiary);
         TextView quote = findViewById(R.id.homeQuote);
         if (quote != null) quote.setTextColor(scheme.onSurface);
         TextView author = findViewById(R.id.homeQuoteAuthor);

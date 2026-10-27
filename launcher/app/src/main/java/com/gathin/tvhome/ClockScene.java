@@ -182,6 +182,7 @@ final class ClockScene {
         SchemeClock clock = root.findViewById(R.id.dreamClock);
         clock.setTextColor(p.secondary);
         clock.setHourColor(Palette.mix(p.primary, 0xFFFFFFFF, 0.35f));
+        clock.setSeparatorColor(p.tertiary);
         TextView quote = root.findViewById(R.id.dreamQuote);
         if (quote != null) quote.setTextColor(p.onSurface);
         TextView author = root.findViewById(R.id.dreamQuoteAuthor);
