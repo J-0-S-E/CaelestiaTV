@@ -485,6 +485,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         if (cfg.clockSize != 52) {
             ((TextView) findViewById(R.id.clock)).setTextSize(TypedValue.COMPLEX_UNIT_SP, cfg.clockSize);
         }
+        if (!cfg.dateBelowClock) alignDateToClock();
         if (scheme != null) {
             heroName.setTextColor(scheme.onSurface);
             heroMeta.setTextColor(scheme.onSurfaceVariant);
@@ -629,7 +630,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         });
         if (dockRow) grid.addItemDecoration(new DockDecoration(COLUMNS, density, cinematic, cfg.alwaysShowNames, cfg.dockOpacity, cfg.dockGlass, cfg.dockEvenPadding, cfg.dockBand,
                 singleRow, cfg.dockBandAll, scheme));
-        if (cfg.fadeRows) TopFade.attach(grid, 48 * density);
+        if (cfg.fadeRows) {
+            TopFade.attach(grid, 48 * density);
+            BottomFade.attach(grid, 110 * density);
+        }
         // Reduced motion: the tiles are simply there, with no entrance (reloadApps skips it there too).
         if (animations && !reducedMotion) {
             grid.setLayoutAnimation(new LayoutAnimationController(
@@ -656,7 +660,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             // Keep the hero below the header when the library is enabled on a short screen,
             // even when the theme requests an extra visible row below the dock.
             int shelfClearance = cfg.appLibrary ? hero.getMeasuredHeight() + (int) (40 * density) : 0;
-            int want = Math.max(shelfClearance, h - dockRow - gridRows - (int) (AppAdapter.BOTTOM_ROOM_DP * density));
+            // rows_below_dock 0: half of the next row still shows under the dock (and fades out with fade_rows),
+            // so the dock sits higher than flush with the bottom edge and the rows read as going on below.
+            int peek = rowsBelowDock == 0 && cfg.dockRow ? itemH / 2 : 0;
+            int want = Math.max(shelfClearance, h - dockRow - gridRows - peek - (int) (AppAdapter.BOTTOM_ROOM_DP * density));
             // Where the rows cannot fit even at the smallest tile (3 rows with the title on), the title keeps its
             // room above the dock and the last rows run off the bottom instead of the title drawing over the clock.
             if (MainActivity.this.dockRow && cfg.dockTitle && rowsBelowDock > 0) want = Math.max(want, (int) (AppAdapter.TITLE_ROOM_DP * density));
@@ -761,6 +768,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                     new Intent(this, LauncherSettingsActivity.class), LAUNCHER_SETTINGS_REQUEST);
             else open(systemIntent(Settings.ACTION_SETTINGS));
         });
+        btnScheme = findViewById(R.id.btnScheme);
+        if (btnScheme != null && !Config.schemeFiles(Config.dir(this)).isEmpty()) {
+            btnScheme.setVisibility(View.VISIBLE);
+            btnScheme.setOnClickListener(v -> showSchemePicker());
+        }
         btnReorder = findViewById(R.id.btnReorder);
         btnReorder.setOnClickListener(v -> toggleReorder());
         btnReorder.setVisibility(cfg.reorderButton ? View.VISIBLE : View.GONE);
@@ -838,9 +850,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnSettings.setOnKeyListener(pillKeys);
         btnReorder.setOnKeyListener(pillKeys);
         btnLibraryTop.setOnKeyListener(pillKeys);
+        if (btnScheme != null) btnScheme.setOnKeyListener(pillKeys);
         for (View button : topAppButtons) button.setOnKeyListener(pillKeys);
         if (advancedEffects) {
             List<View> pills = new ArrayList<>(Arrays.asList(btnInputs, btnWifi, btnVpn, btnReorder, btnLibraryTop, btnSettings));
+            if (btnScheme != null) pills.add(btnScheme);
             pills.addAll(topAppButtons);
             for (View button : pills) {
                 button.setOnFocusChangeListener((view, focused) -> view.animate()
@@ -986,6 +1000,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     @Override
     protected void onResume() {
         super.onResume();
+        Quotes.show(this, findViewById(R.id.homeQuote), findViewById(R.id.homeQuoteAuthor));
         // A festival that started or ended while Home was in the background: rebuild with or without it.
         if (festive != festival.active(LocalDate.now())) {
             recreate();
@@ -2386,6 +2401,56 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     }
 
     /**
+     * The palette button: every scheme file in the theme's schemes/ folder by name, picked as in Launcher settings
+     * (the same saved choice), and Home rebuilds in it at once.
+     */
+    private void showSchemePicker() {
+        List<String> files = Config.schemeFiles(Config.dir(this));
+        SharedPreferences choices = getSharedPreferences(Config.SETTINGS_NAME, MODE_PRIVATE);
+        String pick = choices.getString(Config.SCHEME_KEY, null);
+        String current = pick == null ? Config.load(this).scheme : pick;
+        String[] labels = new String[files.size()];
+        int checked = -1;
+        for (int i = 0; i < files.size(); i++) {
+            labels[i] = Palette.displayName(files.get(i));
+            if (files.get(i).equals(current + ".txt")) checked = i;
+        }
+        SchemeUi.show(SchemeUi.dialog(this, scheme)
+                .setTitle(R.string.scheme_label)
+                .setSingleChoiceItems(labels, checked, (dialog, which) -> {
+                    dialog.dismiss();
+                    String name = files.get(which);
+                    choices.edit().putString(Config.SCHEME_KEY, name.substring(0, name.length() - 4))
+                            .putLong(Config.SETTINGS_REVISION_KEY, choices.getLong(Config.SETTINGS_REVISION_KEY, 0) + 1)
+                            .apply();
+                    recreate();
+                })
+                .setNegativeButton(android.R.string.cancel, null), scheme, density);
+    }
+
+    /**
+     * The date's capitals level with the top of the clock digits, and the line beside it starting there. The
+     * clock font keeps room above its digits, so the offset is measured from the fonts, not fixed.
+     */
+    private void alignDateToClock() {
+        TextView clock = findViewById(R.id.clock);
+        TextView date = findViewById(R.id.date);
+        Rect bounds = new Rect();
+        clock.getPaint().getTextBounds("0", 0, 1, bounds);
+        float digitTop = -clock.getPaint().getFontMetrics().ascent + bounds.top;
+        date.getPaint().getTextBounds("T", 0, 1, bounds);
+        float capTop = -date.getPaint().getFontMetrics().top + bounds.top;
+        LinearLayout.LayoutParams column = (LinearLayout.LayoutParams) ((View) date.getParent()).getLayoutParams();
+        column.gravity = Gravity.TOP;
+        column.bottomMargin = 0;
+        column.topMargin = Math.max(0, Math.round(digitTop - capTop));
+        LinearLayout.LayoutParams divider = (LinearLayout.LayoutParams) findViewById(R.id.clockDivider).getLayoutParams();
+        divider.gravity = Gravity.TOP;
+        divider.bottomMargin = 0;
+        divider.topMargin = Math.round(digitTop);
+    }
+
+    /**
      * date_below_clock: the date column moves to its own line under the clock, in the vertical LinearLayout that holds
      * the clock's row, and the line between them goes. In Hebrew (rtl_menu_bar) the date and the clock's row sit right.
      */
@@ -2812,6 +2877,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private ColorStateList wifiNoInternetTint, wifiOfflineTint;
     /** The app library button in the top bar (library_button). */
     private View btnLibraryTop;
+    /** Opens the colour scheme picker; null in a layout without it. */
+    private View btnScheme;
     /** The open library came from that button: closing it returns there instead of scrolling to the grid's end. */
     private boolean libraryFromTopBar;
     /** The open library came from the VPN pill (vpn_pill, no VPN app): closing it returns there while the pill still shows. */
@@ -2834,11 +2901,18 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         return new ColorStateList(new int[][]{{android.R.attr.state_focused}, {}}, new int[]{focused, idle});
     }
 
-    /** The clock, date and divider in the scheme's colours; the hours take primary and the minutes onSurface. */
+    /**
+     * The clock, date and divider in the scheme's colours. The clock as on Caelestia's lock screen: hours in a
+     * lighter primary, colon and minutes in secondary.
+     */
     private void applySchemeHeader(boolean headerWhite) {
         SchemeClock clock = findViewById(R.id.clock);
-        clock.setTextColor(scheme.onSurface);
-        clock.setHourColor(scheme.primary);
+        clock.setTextColor(scheme.secondary);
+        clock.setHourColor(Palette.mix(scheme.primary, Color.WHITE, 0.35f));
+        TextView quote = findViewById(R.id.homeQuote);
+        if (quote != null) quote.setTextColor(scheme.onSurface);
+        TextView author = findViewById(R.id.homeQuoteAuthor);
+        if (author != null) author.setTextColor(scheme.primary);
         ((TextView) findViewById(R.id.ampm)).setTextColor(scheme.onSurfaceVariant);
         ((TextView) findViewById(R.id.date)).setTextColor(headerWhite ? scheme.onSurface : scheme.onSurfaceVariant);
         ((TextView) findViewById(R.id.shamsiDate)).setTextColor(scheme.onSurface);
@@ -2850,6 +2924,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private void stylePillsForScheme() {
         List<TextView> pills = new ArrayList<>(Arrays.asList((TextView) btnInputs,
                 btnWifi, btnVpn, (TextView) btnReorder, (TextView) btnLibraryTop, (TextView) findViewById(R.id.btnSettings)));
+        if (btnScheme != null) pills.add((TextView) btnScheme);
         for (View app : topAppButtons) pills.add((TextView) app);
         ColorStateList text = pillTint(scheme.onSurface, scheme.onPrimary);
         for (TextView pill : pills) {

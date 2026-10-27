@@ -36,13 +36,13 @@
   "icon_only_buttons": true,
   "icon_only_inputs": true,
   "show_greeting": false,
-  "clock_size": 80,
+  "clock_size": 100,
   "show_stats": true,
   "stats_style": "rings",
   "app_library": true,
   "library_button": true,
   "show_library_pill": false,
-  "home_idle_clock_minutes": 10,
+  "home_idle_clock_minutes": 15,
   "clock_wallpaper": true,
   "clock_wallpaper_dim": 40
 }

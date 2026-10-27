@@ -30,6 +30,47 @@
         android:layout_height="match_parent"
         android:alpha="0" />
 
+    <!-- A quote from the theme's quotes.json (Quotes), new each time Home comes back; gone without one. In the
+         free space right of the clock, centred as on Caelestia's lock screen. -->
+    <LinearLayout
+        android:id="@+id/quotePanel"
+        android:layout_width="440dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical"
+        android:focusable="false">
+
+        <TextView
+            android:id="@+id/homeQuote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:textColor="#E6FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:fontFamily="@string/font_regular"
+            android:lineSpacingExtra="3dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/homeQuoteAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:visibility="gone" />
+    </LinearLayout>
+
     <!-- Race-weekend panel (a theme's race_calendar, see RaceWeekend): in the free space under the clock,
          shown only from shortly before a weekend's first session until the race is over. Updated once a
          minute with the clock, never animated. -->
@@ -117,8 +158,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFFFF"
-            android:textSize="48sp"
-            android:fontFamily="@string/font_light"
+            android:textSize="36sp"
+            android:fontFamily="@string/font_medium"
             android:letterSpacing="-0.02"
             android:includeFontPadding="false"
             android:singleLine="true" />
@@ -203,8 +244,8 @@
                         android:format24Hour="HH:mm"
                         android:textColor="#FFFFFFFF"
                         android:textSize="52sp"
-                        android:fontFamily="@string/font_light"
-                        android:letterSpacing="-0.04"
+                        android:fontFamily="@string/font_clock"
+                        android:singleLine="true"
                         android:includeFontPadding="false" />
 
                     <TextClock
@@ -267,8 +308,8 @@
                             android:format12Hour="@string/date_format_home"
                             android:format24Hour="@string/date_format_home"
                             android:textColor="#A6FFFFFF"
-                            android:textSize="14sp"
-                            android:fontFamily="@string/font_regular"
+                            android:textSize="15sp"
+                            android:fontFamily="@string/font_medium"
                             android:letterSpacing="0.14"
                             android:textAllCaps="true" />
 
@@ -316,8 +357,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@id/leftBlock"
-                android:layout_marginBottom="6dp"
+                android:layout_alignParentTop="true"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:orientation="horizontal">
@@ -360,6 +400,15 @@
                     android:visibility="gone"
                     android:contentDescription="@string/app_library"
                     android:drawableStart="@drawable/ic_apps_pill"
+                    android:nextFocusDown="@+id/grid" />
+
+                <!-- The colour scheme picker; shown when the theme brought schemes. -->
+                <TextView
+                    android:id="@+id/btnScheme"
+                    style="@style/TopButtonIcon"
+                    android:visibility="gone"
+                    android:contentDescription="@string/scheme_label"
+                    android:drawableStart="@drawable/ic_palette"
                     android:nextFocusDown="@+id/grid" />
 
                 <TextView

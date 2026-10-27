@@ -25,6 +25,7 @@ SCHEMES = {
     "everforest/medium/light.txt": "everforest-light.txt",
     "tokyonight/medium/dark.txt": "tokyonight.txt",
     "nord/medium/dark.txt": "nord.txt",
+    "darkgreen/medium/dark.txt": "darkgreen.txt",
 }
 
 OUT = Path(__file__).resolve().parent / "schemes"

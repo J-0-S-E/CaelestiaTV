@@ -26,7 +26,7 @@
             android:orientation="horizontal"
             android:baselineAligned="true">
 
-            <TextClock
+            <com.gathin.tvhome.SchemeClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:format12Hour="h:mm"
@@ -34,8 +34,8 @@
                 android:id="@+id/dreamClock"
                 android:textColor="#E6FFFFFF"
                 android:textSize="120sp"
-                android:fontFamily="@string/font_extralight"
-                android:letterSpacing="-0.04"
+                android:fontFamily="@string/font_clock"
+                android:singleLine="true"
                 android:includeFontPadding="false" />
 
             <TextClock
@@ -65,5 +65,32 @@
             android:fontFamily="@string/font_regular"
             android:letterSpacing="0.14"
             android:textAllCaps="true" />
+
+        <!-- A quote from the theme's quotes.json (Quotes), new each time the screensaver starts. -->
+        <TextView
+            android:id="@+id/dreamQuote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="28dp"
+            android:maxWidth="520dp"
+            android:textColor="#CCFFFFFF"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:fontFamily="@string/font_regular"
+            android:lineSpacingExtra="3dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/dreamQuoteAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#99FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:visibility="gone" />
     </LinearLayout>
 </FrameLayout>

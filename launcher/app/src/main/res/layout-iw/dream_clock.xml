@@ -41,7 +41,7 @@
                 android:letterSpacing="0.08"
                 android:textAllCaps="true" />
 
-            <TextClock
+            <com.gathin.tvhome.SchemeClock
                 android:id="@+id/dreamClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,8 +49,8 @@
                 android:format24Hour="HH:mm"
                 android:textColor="#E6FFFFFF"
                 android:textSize="120sp"
-                android:fontFamily="@string/font_extralight"
-                android:letterSpacing="-0.04"
+                android:fontFamily="@string/font_clock"
+                android:singleLine="true"
                 android:includeFontPadding="false" />
         </LinearLayout>
 

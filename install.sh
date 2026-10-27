@@ -52,6 +52,7 @@ adb -s "$tv" push "$here/theme/config.json" "$dir/config.json" >/dev/null
 for f in "$here"/theme/schemes/*.txt; do
     adb -s "$tv" push "$f" "$dir/schemes/$(basename "$f")" >/dev/null
 done
+adb -s "$tv" push "$here/theme/quotes.json" "$dir/quotes.json" >/dev/null
 sh_tv "printf '%s' '$(date +%Y%m%d%H%M%S)' > $dir/theme_revision; cmd package set-home-activity --user 0 $pkg/.MainActivity" >/dev/null
 
 if [ -n "$tweaks" ]; then
@@ -64,7 +65,10 @@ if [ -n "$tweaks" ]; then
         remember "device_config activity_manager max_cached_processes $(sh_tv 'device_config get activity_manager max_cached_processes')"
         sh_tv 'device_config put activity_manager max_cached_processes 6' >/dev/null
     fi
-    echo "Tweaks: animations 0.5x, at most 6 background apps"
+    # The screensaver after 15 minutes without a key; Android TV starts it at screen_off_timeout.
+    remember "setting system screen_off_timeout $(sh_tv 'settings get system screen_off_timeout')"
+    sh_tv 'settings put system screen_off_timeout 900000' >/dev/null
+    echo "Tweaks: animations 0.5x, at most 6 background apps, screensaver after 15 min"
 fi
 
 if [ -n "$debloat" ]; then

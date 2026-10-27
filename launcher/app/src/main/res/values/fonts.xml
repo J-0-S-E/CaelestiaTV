@@ -7,4 +7,7 @@
     <string name="font_light" translatable="false">@font/outfit_light</string>
     <string name="font_extralight" translatable="false">@font/outfit_extralight</string>
     <string name="font_medium" translatable="false">@font/outfit_medium</string>
+    <!-- The clocks: Google Sans Flex as Caelestia's lock screen draws it (wght 650, wdth 30, ROND 25), made
+         static and cut to printable ASCII, 50 KB instead of 4 MB. -->
+    <string name="font_clock" translatable="false">@font/google_sans_flex_clock</string>
 </resources>

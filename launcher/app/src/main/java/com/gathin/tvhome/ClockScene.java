@@ -34,6 +34,9 @@ import java.util.Set;
 final class ClockScene {
 
     private static final long MOVE_MS = 60_000L;
+    /** After an hour up, clock and glow fade to half, so a TV left on for long burns in less. */
+    private static final long DIM_AFTER_MS = 60 * 60_000L;
+    private static final float DIM_ALPHA = 0.5f;
     /** The glow's colour change: 16 steps over 8 s. Animated per frame it redrew the full-screen gradient ~480 times. */
     private static final int GLOW_STEPS = 16;
     private static final long GLOW_STEP_MS = 500L;
@@ -90,11 +93,28 @@ final class ClockScene {
         setGlow(colors[colorIndex]);
     }
 
+    /** The clock's alpha between moves: 1, or DIM_ALPHA once dim has run. */
+    private float shownAlpha = 1f;
+
+    private final Runnable dim = new Runnable() {
+        @Override
+        public void run() {
+            shownAlpha = DIM_ALPHA;
+            content.animate().alpha(DIM_ALPHA).setDuration(10_000).start();
+            ambient.animate().alpha(DIM_ALPHA).setDuration(10_000).start();
+        }
+    };
+
     void start() {
+        Quotes.show(root.getContext(), root.findViewById(R.id.dreamQuote), root.findViewById(R.id.dreamQuoteAuthor));
+        shownAlpha = 1f;
+        ambient.setAlpha(1f);
+        handler.removeCallbacks(dim);
+        handler.postDelayed(dim, DIM_AFTER_MS);
         content.setAlpha(0f);
         content.post(() -> {
             placeClock();
-            content.animate().alpha(1f).setDuration(1200).start();
+            content.animate().alpha(shownAlpha).setDuration(1200).start();
         });
         handler.removeCallbacks(tick);
         handler.postDelayed(tick, MOVE_MS);
@@ -104,6 +124,7 @@ final class ClockScene {
     void stop() {
         handler.removeCallbacksAndMessages(null);   // the tick and any glow steps still queued
         content.animate().cancel();
+        ambient.animate().cancel();
         wallpaperGeneration++;   // a decode still running must not attach its picture to a stopped scene
     }
 
@@ -158,7 +179,13 @@ final class ClockScene {
     /** The colour scheme: its background behind the clock, its text colours, and its accents as the glow's colours. */
     private void applyScheme(Palette p) {
         root.findViewById(R.id.dreamRoot).setBackgroundColor(p.background);
-        ((TextView) root.findViewById(R.id.dreamClock)).setTextColor(p.onSurface);
+        SchemeClock clock = root.findViewById(R.id.dreamClock);
+        clock.setTextColor(p.secondary);
+        clock.setHourColor(Palette.mix(p.primary, 0xFFFFFFFF, 0.35f));
+        TextView quote = root.findViewById(R.id.dreamQuote);
+        if (quote != null) quote.setTextColor(p.onSurface);
+        TextView author = root.findViewById(R.id.dreamQuoteAuthor);
+        if (author != null) author.setTextColor(p.primary);
         ((TextView) root.findViewById(R.id.dreamAmpm)).setTextColor(Palette.withAlpha(p.onSurface, 0x99));
         ((TextView) root.findViewById(R.id.dreamDate)).setTextColor(p.onSurfaceVariant);
         colors = new int[]{p.primary, p.secondary, p.tertiary};
@@ -243,7 +270,7 @@ final class ClockScene {
     private void moveClock() {
         content.animate().alpha(0f).setDuration(900).withLayer().withEndAction(() -> {
             placeClock();
-            content.animate().alpha(1f).setDuration(1200).withLayer().start();
+            content.animate().alpha(shownAlpha).setDuration(1200).withLayer().start();
         }).start();
     }
 

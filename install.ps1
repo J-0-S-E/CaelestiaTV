@@ -52,6 +52,7 @@ adb -s $Tv push (Join-Path $PSScriptRoot 'theme\config.json') "$dir/config.json"
 Get-ChildItem (Join-Path $PSScriptRoot 'theme\schemes') -Filter *.txt | ForEach-Object {
     adb -s $Tv push $_.FullName "$dir/schemes/$($_.Name)" | Out-Null
 }
+adb -s $Tv push (Join-Path $PSScriptRoot 'theme\quotes.json') "$dir/quotes.json" | Out-Null
 Sh "printf '%s' '$(Get-Date -Format yyyyMMddHHmmss)' > $dir/theme_revision; cmd package set-home-activity --user 0 $pkg/.MainActivity" | Out-Null
 
 if (-not $NoTweaks) {
@@ -64,7 +65,10 @@ if (-not $NoTweaks) {
         Remember "device_config activity_manager max_cached_processes $((Sh 'device_config get activity_manager max_cached_processes').Trim())"
         Sh 'device_config put activity_manager max_cached_processes 6' | Out-Null
     }
-    Write-Host 'Tweaks: animations 0.5x, at most 6 background apps'
+    # The screensaver after 15 minutes without a key; Android TV starts it at screen_off_timeout.
+    Remember "setting system screen_off_timeout $((Sh 'settings get system screen_off_timeout').Trim())"
+    Sh 'settings put system screen_off_timeout 900000' | Out-Null
+    Write-Host 'Tweaks: animations 0.5x, at most 6 background apps, screensaver after 15 min'
 }
 
 if (-not $NoDebloat) {
